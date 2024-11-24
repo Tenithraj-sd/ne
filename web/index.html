@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Controller</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        /* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a2e; /* Page background for dark mode */
+}
+
+/* Main container */
+.main {
+    text-align: center;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    width: 500px;
+    position: relative;
+}
+
+/* Light and Dark mode variables */
+:root {
+    --card-bg: #1a1a2e;
+    --text-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --title-color: #6dd5fa;
+    --button-bg: linear-gradient(90deg, #004e92, #000428);
+    --button-hover: linear-gradient(90deg, #000428, #004e92);
+    --icon-color: #50c878;
+}
+
+.main.light-mode {
+    --card-bg: #f4f4f4;
+    --text-color: #333333;
+    --border-color: rgba(0, 0, 0, 0.2);
+    --title-color: #004e92;
+    --button-bg: linear-gradient(90deg, #3498db, #8e44ad);
+    --button-hover: linear-gradient(90deg, #8e44ad, #3498db);
+    --icon-color: #3498db;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    color: var(--title-color);
+}
+
+/* Theme Toggle Icon */
+#theme-toggle-icon {
+    background: var(--button-bg);
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0px 5px 15px rgba(0, 0, 64, 0.3);
+    transition: all 0.3s ease;
+}
+
+#theme-toggle-icon:hover {
+    transform: scale(1.1);
+    background: var(--button-hover);
+}
+
+/* Status Message */
+.status p {
+    font-size: 1.2em;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+/* Button */
+#control-button {
+    background: var(--button-bg);
+    color: #fff;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 10px 20px rgba(0, 0, 64, 0.4);
+}
+
+#control-button:hover {
+    transform: translateY(-5px);
+    background: var(--button-hover);
+    box-shadow: 0px 15px 30px rgba(0, 0, 64, 0.5);
+}
+
+#control-button:active {
+    transform: scale(0.95);
+}
+
+/* Command List */
+.command-list {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.command-list p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--title-color);
+}
+
+.command-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.command-list li {
+    margin: 10px 0;
+    font-size: 1em;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.command-list li:before {
+    content: '⚡';
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: var(--icon-color);
+}
+
+    </style>
+</head>
+<body>
+    <div class="main" id="main-container">
+        <div class="header">
+            <h1>🤖 Bot Controller</h1>
+            <div id="theme-toggle-icon" onclick="toggleTheme()">🌙</div>
+        </div>
+
+        <div class="card">
+            <div class="status">
+                <p id="status">Bot is ready to start!</p>
+            </div>
+            <button id="control-button" onclick="toggleBot()">Start Bot</button>
+
+            <div class="command-list">
+                <p><strong>Commands:</strong></p>
+                <ul>
+                    <li>🖼️ /screenshot - Capture a screenshot</li>
+                    <li>🔋 //battery_percentageb - View battery status</li>
+                    <li>🛑 /power_off - Power off system</li>
+                    <li>🔄 /reboot_system - Restart system</li>
+                    <li>📊 /system_usage - Show system usage info</li>
+                    <li>💻 /open_terminal - Open terminal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the eel.js file (this should be served automatically by Eel) -->
+    <script type="text/javascript" src="/eel.js"></script>
+
+    <script>
+        function toggleTheme() {
+            const container = document.getElementById("main-container");
+            const toggleIcon = document.getElementById("theme-toggle-icon");
+
+            if (container.classList.contains("light-mode")) {
+                container.classList.remove("light-mode");
+                toggleIcon.innerHTML = "🌙"; // Moon for dark mode
+            } else {
+                container.classList.add("light-mode");
+                toggleIcon.innerHTML = "☀️"; // Sun for light mode
+            }
+        }
+
+        function toggleBot() {
+            const button = document.getElementById("control-button");
+            const status = document.getElementById("status");
+
+            if (button.innerHTML === "Start Bot") {
+                button.innerHTML = "Stop Bot";
+                status.innerHTML = "Bot is now running...";
+                eel.start_bot();  // Call Python function to start the bot
+            } else {
+                button.innerHTML = "Start Bot";
+                status.innerHTML = "Bot has been stopped.";
+                eel.stop_bot();   // Call Python function to stop the bot
+            }
+        }
+
+        // Expose the function to update the button text dynamically from Python
+        eel.expose(update_button);
+        function update_button(text) {
+            document.getElementById("control-button").innerHTML = text;
+        }
+
+        // Expose the function to update the status dynamically from Python
+        eel.expose(update_status);
+        function update_status(status) {
+            document.getElementById("status").innerHTML = status;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a2e; /* Page background for dark mode */
+}
+
+/* Main container */
+.main {
+    text-align: center;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    width: 500px;
+    position: relative;
+}
+
+/* Light and Dark mode variables */
+:root {
+    --card-bg: #1a1a2e;
+    --text-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --title-color: #6dd5fa;
+    --button-bg: linear-gradient(90deg, #004e92, #000428);
+    --button-hover: linear-gradient(90deg, #000428, #004e92);
+    --icon-color: #50c878;
+}
+
+.main.light-mode {
+    --card-bg: #f4f4f4;
+    --text-color: #333333;
+    --border-color: rgba(0, 0, 0, 0.2);
+    --title-color: #004e92;
+    --button-bg: linear-gradient(90deg, #3498db, #8e44ad);
+    --button-hover: linear-gradient(90deg, #8e44ad, #3498db);
+    --icon-color: #3498db;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    color: var(--title-color);
+}
+
+/* Theme Toggle Icon */
+#theme-toggle-icon {
+    background: var(--button-bg);
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0px 5px 15px rgba(0, 0, 64, 0.3);
+    transition: all 0.3s ease;
+}
+
+#theme-toggle-icon:hover {
+    transform: scale(1.1);
+    background: var(--button-hover);
+}
+
+/* Status Message */
+.status p {
+    font-size: 1.2em;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+/* Button */
+#control-button {
+    background: var(--button-bg);
+    color: #fff;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 10px 20px rgba(0, 0, 64, 0.4);
+}
+
+#control-button:hover {
+    transform: translateY(-5px);
+    background: var(--button-hover);
+    box-shadow: 0px 15px 30px rgba(0, 0, 64, 0.5);
+}
+
+#control-button:active {
+    transform: scale(0.95);
+}
+
+/* Command List */
+.command-list {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.command-list p {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--title-color);
+}
+
+.command-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.command-list li {
+    margin: 10px 0;
+    font-size: 1em;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+.command-list li:before {
+    content: '⚡';
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: var(--icon-color);
+}
